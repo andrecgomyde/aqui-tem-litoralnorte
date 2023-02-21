@@ -1,0 +1,1 @@
+var mageplazaSearchProducts = [{"value":"Teste de produto","c":["20"],"d":"Lorem Ipsum is simply dummy text of the printing and typesetting industry.","p":150,"i":"cache\/aec644f8bce55afb99100a901c82030a\/t\/e\/teste_de_produto_aqui_tem_litoral_norte.png","u":"teste-de-produto.html"}]

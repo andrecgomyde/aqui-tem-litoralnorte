@@ -1,0 +1,84 @@
+<?php
+/**
+ * Apptha
+ * NOTICE OF LICENSE
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.apptha.com/LICENSE.txt
+ * ==============================================================
+ * MAGENTO EDITION USAGE NOTICE
+ * ==============================================================
+ * This package designed for Magento COMMUNITY edition
+ * Apptha does not guarantee correct work of this extension
+ * on any other Magento edition except Magento COMMUNITY edition.
+ * Apptha does not provide extension support in case of
+ * incorrect edition usage.
+ * ==============================================================
+ *
+ * @category Apptha
+ * @package Apptha_Marketplace
+ * @version 1.2
+ * @author Apptha Team <developers@contus.in>
+ * @copyright Copyright (c) 2017 Apptha. (http://www.apptha.com)
+ * @license http://www.apptha.com/LICENSE.txt
+ */
+?>
+<?php
+$helper = $this->helper( 'Apptha\Marketplace\Helper\Objectmanager' );
+$customerSession = $helper->customerSession();
+if ($customerSession->isLoggedIn ()) {
+ $customerId = $customerSession->getId ();
+}
+$customerGroupId = $customerSession->getCustomer ()->getGroupId ();
+$helper = $this->helper ( 'Apptha\Marketplace\Helper\Objectmanager' );
+$resultData = $helper->sellerCollection();
+$resultDatasCollection = $resultData->getCollection ();
+$resultDatas = $resultDatasCollection->getData ();
+$resultIds = array ();
+foreach ( $resultDatas as $resultId ) {
+ $sellerIds [] = $resultId ['customer_id'];
+}
+if ($customerGroupId != '4') {
+ ?>
+<div class="col-main">
+    <div class="my-account">
+        <div class="box-account box-info">
+            <p>Anuncie os seus produtos e serviços no melhor portal do
+                litoral norte de São Paulo por 3 meses grátis! Crie o
+                seu perfil, preencha todas as informações e aumente as
+                chances dos seus anúncios serem vistos. Confira quantas
+                vezes os anúncios foram visualizados e fique atento. Em breve
+                os seus clientes podem entrar em contato por e-mail ou telefone.</p>
+            <p>Para prosseguir você deve concordar com os nossos termos e condições.</p>
+            <form data-mage-init='{"validation":{}}' name="buyer-seller"
+                id="buyer-seller"
+                action="<?php  echo $block->getUrl('*/*/Saveseller')?>"
+                method="post">
+                <div class="input-box">
+                    <input type="checkbox" id="privacy_policy"
+                        name="privacy_policy" value="1"
+                        title="I agree the Terms and Condition"
+                        data-validate="{required:true}" /> <label
+                        for="privacy_policy"> Eu concordo com os <a
+                        href="<?php echo $block->getUrl('termos-e-condicoes');?>"
+                        target="_blank"><?php echo __('Termos e condições') ?></a>
+                    </label>
+                </div><br/>
+                <div class="actions-toolbar">
+                    <div class="primary">
+                        <button type="submit"
+                            class="action submit primary">
+                            <span><?php  echo __('Anuncie agora!') ?></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<?php
+
+} else {
+    echo __ ( 'Admin Approval is required. Please wait until admin confirms your seller account.');
+ }?>
